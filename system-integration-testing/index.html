@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>system-integration-testing</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+<!-- Header -->
+<header class="bg-red-900 text-white p-6">
+    <div class="container mx-auto">
+        <h1 id="pageTitle" class="text-3xl font-bold">system-integration-testing</h1>
+        <p id="pageSubtitle" class="text-xl mt-2">Test interaction between sustems</p>
+        <nav class="mt-4">
+            <a href="../index.html" class="text-lg hover:underline">Home</a>
+        </nav>
+    </div>
+</header>
+
+<!-- Main Content -->
+<section class="container mx-auto mt-10">
+    <h2 class="text-2xl font-semibold" id="introTitle">What is system-integration-testing?&nbsp;?</h2>
+    <p id="introText" class="mt-4 text-lg">    </p>
+
+    <!-- Interactive Example -->
+    <div id="interactiveSection" class="mt-8">
+        <h3 class="text-xl font-bold">Example&nbsp;: Interaction with payment , with account Authentification</h3>
+        <p class="mt-2">
+            Simulate payment system with Authentification system and see the interaction between them.
+            Test  <strong>the connexion via Google</strong> and see the result.
+        </p>
+
+        <div class="mt-4">
+            <!-- Button to trigger payment -->
+            <button id="triggerPayment" class="bg-green-500 px-4 py-2 rounded mr-2">Launch payment</button>
+            <!-- Button to trigger inventory -->
+            <button id="triggerInventory" class="bg-blue-500 px-4 py-2 rounded mr-2" disabled>update Inventory</button>
+            <!-- NEW: Button to simulate Google Auth -->
+            <button id="googleSignIn" class="bg-red-500 px-4 py-2 rounded text-white">Google Authentification</button>
+        </div>
+
+        <!-- Mock Payment System -->
+        <div id="paymentSystem" class="mt-4 hidden bg-white p-4 rounded shadow-lg">
+            <h4 class="text-xl font-bold">payment system is working</h4>
+            <label class="block mt-4">Num of credit card&nbsp;:</label>
+            <input type="text" id="creditCardInput" class="border p-2 w-full" placeholder="Saisissez un numéro de carte" required>
+            <label class="block mt-4">Amount&nbsp;:</label>
+            <input type="text" id="amountInput" class="border p-2 w-full" placeholder="Saisissez le montant" required>
+            <button id="confirmPayment" class="bg-green-500 text-white px-4 py-2 mt-4 rounded">Confirm payment</button>
+        </div>
+
+        <!-- Inventory System -->
+        <div id="inventorySystem" class="mt-8 hidden bg-white p-4 rounded shadow-lg">
+            <h4 class="text-xl font-bold">inventory system</h4>
+            <ul id="inventoryList" class="mt-4 list-disc pl-8">
+                <li>Article 1 <button class="bg-red-400 px-2 py-1 ml-4" onclick="removeItemFromInventory(1)">ship to customer</button></li>
+                <li>Article 2 <button class="bg-red-400 px-2 py-1 ml-4" onclick="removeItemFromInventory(2)">ship to customer</button></li>
+                <li>Article 3 <button class="bg-red-400 px-2 py-1 ml-4" onclick="removeItemFromInventory(3)">ship to customer</button></li>
+            </ul>
+        </div>
+
+        <!-- NEW: Display Google user info -->
+        <div id="googleAuthSystem" class="mt-8 hidden bg-white p-4 rounded shadow-lg">
+            <h4 class="text-xl font-bold">Authentification Google</h4>
+            <p class="mt-2">Hello, <span id="googleUserName" class="font-semibold"></span>!</p>
+        </div>
+
+        <p id="integrationResult" class="mt-4 text-lg"></p>
+    </div>
+
+    <!-- Code Example (Real-time) -->
+    <div id="codeSection" class="mt-8">
+        <h3 class="text-xl font-bold">Code of this example</h3>
+        <pre id="codeBlock" class="bg-gray-200 p-4 rounded mt-4">
+<code>
+// JavaScript for system integration
+let paymentProcessed = false;
+let inventory = {1: "Article 1", 2: "Article 2", 3: "Article 3"};
+let googleUserName = ""; // google username taken from google connexion 
+
+// Function to treat payment
+function processPayment(cardNumber, amount) {
+    if (cardNumber && amount) {
+        paymentProcessed = true;
+        return "payment de " + amount + "€ success !";
+    }
+    return "verify your credit number/ enter a valid amount.";
+}
+
+// Function inventory update
+function updateInventory() {
+    if (paymentProcessed) {
+        return "Inventory ready to ship !";
+    } else {
+        return "inventory could not be updated without payment!";
+    }
+}
+
+// Function for google Authentification
+function handleGoogleSignIn() {
+    googleUserName = "Utilisateur Google (exemple)";
+    return googleUserName;
+}
+</code>
+        </pre>
+    </div>
+
+    <!-- Lottie Animation -->
+    <div id="lottie-container" class="mt-8">
+        <div id="lottie-animation" style="width: 200px; height: 200px;"></div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white mt-16 p-4">
+    <p class="text-center"></p>
+</footer>
+
+<!-- GSAP and Lottie -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+<script src="scripts.js"></script>
+</body>
+</html>
